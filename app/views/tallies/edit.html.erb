@@ -1,0 +1,30 @@
+<% content_for :back_to_parent do %>
+  <div class="bg-sky-200/50 hover:bg-sky-200 py-0.5 px-2 rounded-md">
+    <%= link_to "Back to Tally", tally_path(@tally) %>
+  </div>
+<% end %>
+
+<%= content_for :page_title_text do %>
+  <div class="text-center w-auto font-semibold text-lg py-2">
+    Edit Tally Info
+  </div>
+<% end %>
+
+<%= form_with model: @tally, class: "space-y-6 p-2" do |e| %>
+  <div class="space-y-4">
+    <div>
+      <%= e.label "Tally Name:", class: "font-medium text-gray-700" %>
+      <%= e.text_field :name, class: "mt-1 w-auto rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= e.label "Card Balance:", class: "font-medium text-gray-700" %>
+      <%= e.text_field :balance, class: "ml-2 w-auto rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= e.submit "Update Tally", class: "inline-flex justify-center rounded-md bg-sky-600 px-4 py-2 text-white font-semibold shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500" %>
+    </div>
+
+  </div>
+<% end %>

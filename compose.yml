@@ -1,0 +1,28 @@
+services:
+  web:
+    image: ruby:3.2
+    working_dir: /rails
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    command: bash -c "bundle install && ./bin/rails server -b 0.0.0.0 -p 3000"
+    environment:
+      RAILS_ENV: development
+
+  tailwind:
+    image: node:20
+    working_dir: /rails
+    volumes:
+      - .:/rails
+    command: npx tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --watch --poll
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    command:
+      - "http"
+      - "--domain=frog-correct-cardinal.ngrok-free.app"
+      - "web:3000"
+    env_file: ".env"
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}

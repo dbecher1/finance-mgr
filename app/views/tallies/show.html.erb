@@ -1,0 +1,60 @@
+<% content_for :back_to_parent do %>
+  <div class="bg-sky-200/50 hover:bg-sky-200 py-0.5 px-2 rounded-md">
+    <%= link_to "Back to Dashboard", controller: :tallies, action: :index %>
+  </div>
+<% end %>
+
+<%= content_for :page_title_text do %>
+  <div class="text-center w-auto font-semibold text-lg py-2">
+    <%= @tally.name %>
+  </div>
+<% end %>
+
+<div class="font-medium flex flex-col gap-1 p-2">
+  <div class="flex justify-between">
+    <div>
+      Current card balance: $<%= sprintf '%.2f', @tally.balance %>
+    </div>
+    <div>Created: <%= @tally.created_at.to_formatted_s(:short) %></div>
+  </div>
+  <div class="flex justify-between">
+    <div>
+      Sum of payments:
+      $<%= sprintf '%.2f', @total_entry_sum %>
+    </div>
+    <% # TODO: make a helper method for readable dates %>
+    <div>Last modified: <%= @tally.updated_at.to_formatted_s(:short) %></div>
+  </div>
+  <div>
+    Balance after payments:
+    <% balance_diff = @tally.balance - @total_entry_sum %>
+    $<%= sprintf '%.2f', ([balance_diff, 0].max) %>
+  </div>
+</div>
+<div class="flex flex-row-reverse">
+  <%= render partial: "shared/icons/delete" %>
+  <%= link_to edit_tally_path(@tally) do %>
+    <%= render partial: "shared/icons/edit" %>
+  <% end %>
+  <%= link_to new_tally_entry_path(@tally) do %>
+    <%= render partial: "shared/icons/add" %>
+  <% end %>
+</div>
+<table id="tally-show-entries" class="bg-sky-200 w-full p-2">
+  <thead class="text-left">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Notes</th>
+  </tr>
+  </thead>
+  <% @tally.entries.each do |e| %>
+    <tr class="bg-sky-100/50">
+      <td><%= e.name %></td>
+      <td><%= e.purchased_on %></td>
+      <td><%= sprintf '%.2f', e.price %></td>
+      <td>TODO</td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,31 @@
+<%= content_for :page_title_text do %>
+  <div class="text-center w-auto font-semibold text-lg py-2">
+    Your Past Tallies
+  </div>
+<% end %>
+
+<div class="bg-sky-200 border-1 border-sky-400/60 rounded-sm">
+  <div>
+    <div class=" bg-sky-300 text-sm w-auto flex justify-end px-2 py-1">
+      <span class="hover:text-gray-700">
+        <%= link_to new_tally_path do %>
+          <%= render partial: "shared/icons/add" %>
+        <% end %>
+      </span>
+    </div>
+    <div class="flex justify-between px-2 py-1.5 bg-sky-300/50 font-medium">
+      <span>Tally Name</span>
+      <span>Date Created</span>
+    </div>
+  </div>
+  <!--TODO: Make this scrollable-->
+  <% @tallies.each do |t| %>
+    <%= link_to tally_path(t) do %>
+      <div class="w-auto p-2 flex justify-between hover:bg-sky-100/70">
+        <span><%= t.name %></span>
+        <span><%= t.created_at.to_formatted_s(:short) %></span>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+

@@ -1,0 +1,30 @@
+<% content_for :back_to_parent do %>
+  <div class="bg-sky-200/50 hover:bg-sky-200 py-0.5 px-2 rounded-md">
+    <%= link_to "Back to Dashboard", tallies_path %>
+  </div>
+<% end %>
+
+<%= content_for :page_title_text do %>
+  <div class="text-center w-auto font-semibold text-lg py-2">
+    Create New Tally
+  </div>
+<% end %>
+
+<%= form_with model: @tally, class: "space-y-6 p-2" do |e| %>
+  <div class="space-y-4">
+    <div>
+      <%= e.label "Name:", class: "font-medium text-gray-700" %>
+      <%= e.text_field :name, class: "ml-2 w-auto rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= e.label "Initial balance:", class: "font-medium text-gray-700" %>
+      $<%= e.text_field :balance, class: "w-auto rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= e.submit "Create New Tally", class: "inline-flex justify-center rounded-md bg-sky-600 px-4 py-2 text-white font-semibold shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500" %>
+    </div>
+
+  </div>
+<% end %>
